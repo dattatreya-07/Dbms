@@ -187,3 +187,158 @@ BEGIN
 END;
 /
 ```
+
+-- Procedure to Insert Material
+
+```sql
+CREATE OR REPLACE PROCEDURE add_material
+(p_id NUMBER, p_name VARCHAR2, p_qty NUMBER)
+IS
+BEGIN
+   INSERT INTO material(material_id, material_name, total_quantity)
+   VALUES(p_id, p_name, p_qty);
+END;
+/
+```
+
+---
+
+-- Procedure to Update Material Quantity
+
+```sql
+CREATE OR REPLACE PROCEDURE update_material_qty
+(p_id NUMBER, p_qty NUMBER)
+IS
+BEGIN
+   UPDATE material
+   SET total_quantity = p_qty
+   WHERE material_id = p_id;
+END;
+/
+```
+
+---
+
+-- Procedure to Delete Material
+
+```sql
+CREATE OR REPLACE PROCEDURE delete_material
+(p_id NUMBER)
+IS
+BEGIN
+   DELETE FROM material
+   WHERE material_id = p_id;
+END;
+/
+```
+
+---
+
+-- Procedure to Insert Supplier
+
+```sql
+CREATE OR REPLACE PROCEDURE add_supplier
+(p_id NUMBER, p_name VARCHAR2)
+IS
+BEGIN
+   INSERT INTO supplier
+   VALUES(p_id, p_name);
+END;
+/
+```
+
+---
+
+-- Procedure to Record Purchase
+
+```sql
+CREATE OR REPLACE PROCEDURE add_purchase
+(p_id NUMBER, p_sid NUMBER, p_mid NUMBER, p_qty NUMBER)
+IS
+BEGIN
+   INSERT INTO purchase(purchase_id, supplier_id, material_id, purchased_quantity)
+   VALUES(p_id, p_sid, p_mid, p_qty);
+END;
+/
+```
+
+---
+
+-- Procedure to Issue Material
+
+```sql
+CREATE OR REPLACE PROCEDURE issue_material
+(p_mid NUMBER, p_qty NUMBER)
+IS
+BEGIN
+   UPDATE material
+   SET total_quantity = total_quantity - p_qty
+   WHERE material_id = p_mid;
+END;
+/
+```
+
+---
+
+-- Procedure to Return Material
+
+```sql
+CREATE OR REPLACE PROCEDURE return_material
+(p_mid NUMBER, p_qty NUMBER)
+IS
+BEGIN
+   UPDATE material
+   SET total_quantity = total_quantity + p_qty
+   WHERE material_id = p_mid;
+END;
+/
+```
+
+---
+
+-- Procedure to Update Machine Rent
+
+```sql
+CREATE OR REPLACE PROCEDURE update_machine_rent
+(p_id NUMBER, p_rent NUMBER)
+IS
+BEGIN
+   UPDATE machines
+   SET rent_per_day = p_rent
+   WHERE machine_id = p_id;
+END;
+/
+```
+
+---
+
+-- Procedure to Record Wastage
+
+```sql
+CREATE OR REPLACE PROCEDURE add_wastage
+(p_id NUMBER, p_mid NUMBER, p_qty NUMBER)
+IS
+BEGIN
+   INSERT INTO wastage(wastage_id, material_id, wastage_quantity)
+   VALUES(p_id, p_mid, p_qty);
+END;
+/
+```
+
+---
+
+-- Procedure to Update Stock Ledger
+
+```sql
+CREATE OR REPLACE PROCEDURE update_stock
+(p_mid NUMBER, p_issue NUMBER)
+IS
+BEGIN
+   UPDATE stock_ledger
+   SET issued_qty = issued_qty + p_issue
+   WHERE material_id = p_mid;
+END;
+/
+```
+
+---
