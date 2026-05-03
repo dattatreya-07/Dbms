@@ -1,0 +1,520 @@
+college> show collections
+material
+college> use material
+switched to db material
+
+material> db.material.find()
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cutting Machine',
+    unit: 'Numbers',
+    total_quantity: 15,
+    purchase_date: '15-01-2026',
+    cost_per_unit: 2500,
+    category_id: 2
+  }
+]
+material> db.material.insertMany([
+|   {
+|     material_id: 102,
+|     material_name: "Steel TMT Bar",
+|     unit: "TON",
+|     total_quantity: 50,
+|     purchase_date: "20-01-2024",
+|     cost_per_unit: 60000,
+|     category_id: 1
+|   },
+|   {
+|     material_id: 103,
+|     material_name: "River Sand",
+|     unit: "LOAD",
+|     total_quantity: 30,
+|     purchase_date: "25-01-2024",
+|     cost_per_unit: 5000,
+|     category_id: 2
+|   },
+|   {
+|     material_id: 104,
+|     material_name: "Bricks",
+|     unit: "NOS",
+|     total_quantity: 10000,
+|     purchase_date: "28-01-2024",
+|     cost_per_unit: 8,
+|     category_id: 2
+|   }
+| ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69ee0240e866f7d6193682d6'),
+    '1': ObjectId('69ee0240e866f7d6193682d7'),
+    '2': ObjectId('69ee0240e866f7d6193682d8')
+  }
+}
+material> db.material.find()
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cutting Machine',
+    unit: 'Numbers',
+    total_quantity: 15,
+    purchase_date: '15-01-2026',
+    cost_per_unit: 2500,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.updateOne(
+|   { material_id: 101 },
+|   {
+|     $set: {
+|       cost_per_unit: 370,
+|       total_quantity: 550
+|     }
+|   }
+| );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+material> db.material.find({material_id:101})
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cutting Machine',
+    unit: 'Numbers',
+    total_quantity: 550,
+    purchase_date: '15-01-2026',
+    cost_per_unit: 370,
+    category_id: 2
+  }
+]
+material> db.material.updateOne(
+|   { material_id: 101 },
+|   {
+|     $rename: { "unit": "unit_type" }
+|   }
+| );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+material> db.material.find({material_id:101})
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cutting Machine',
+    total_quantity: 550,
+    purchase_date: '15-01-2026',
+    cost_per_unit: 370,
+    category_id: 2,
+    unit_type: 'Numbers'
+  }
+]
+material> db.material.replaceOne(
+|   { material_id: 101 },
+|   {
+|     material_id: 101,
+|     material_name: "Cement OPC 53",
+|     unit: "BAG",
+|     total_quantity: 600,
+|     purchase_date: "15-01-2024",
+|     cost_per_unit: 380,
+|     category_id: 3
+|   }
+| );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+material> db.material.find({material_id:101})
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  }
+]
+material> db.material.find({ material_id: { $gt: 102 } });
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.find({ material_id: { $lt: 103 } });
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  }
+]
+material> db.material.find({
+|   material_name: { $in: ["Cutting Machine", "Bricks"] }
+| });
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.find({
+|   material_name: { $in: ["Cement OPC 53", "Bricks"] }
+| });
+[
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.find({
+|   material_name: { $nin: ["Cement OPC 53"] }
+| });
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.find().sort({ material_name: 1 }); //ascending
+| db.material.find().sort({ material_id: -1 });  //descending
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  },
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  }
+]
+material> db.material.find().sort({ material_name: 1 }); //ascending
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  }
+]
+material>
+| db.material.find().sort({ material_id: -1 });  //descending
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  },
+  {
+    _id: ObjectId('69eddcabe866f7d6193682d5'),
+    material_id: 101,
+    material_name: 'Cement OPC 53',
+    unit: 'BAG',
+    total_quantity: 600,
+    purchase_date: '15-01-2024',
+    cost_per_unit: 380,
+    category_id: 3
+  }
+]
+material> db.material.aggregate([
+|   {
+|     $group: {
+|       _id: "$category_id",
+|       total_materials: { $sum: 1 }
+|     }
+|   }
+| ]);
+[
+  { _id: 2, total_materials: 2 },
+  { _id: 3, total_materials: 1 },
+  { _id: 1, total_materials: 1 }
+]
+material> db.material.aggregate([
+|   {
+|     $group: {
+|       _id: "$category_id",
+|       total: { $sum: 1 },
+|       max_cost: { $max: "$cost_per_unit" },
+|       min_cost: { $min: "$cost_per_unit" }
+|     }
+|   }
+| ]);
+[
+  { _id: 1, total: 1, max_cost: 60000, min_cost: 60000 },
+  { _id: 3, total: 1, max_cost: 380, min_cost: 380 },
+  { _id: 2, total: 2, max_cost: 5000, min_cost: 8 }
+]
+material> db.material.deleteOne({ material_id: 101 });
+{ acknowledged: true, deletedCount: 1 }
+material> db.material.find()
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d6'),
+    material_id: 102,
+    material_name: 'Steel TMT Bar',
+    unit: 'TON',
+    total_quantity: 50,
+    purchase_date: '20-01-2024',
+    cost_per_unit: 60000,
+    category_id: 1
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d7'),
+    material_id: 103,
+    material_name: 'River Sand',
+    unit: 'LOAD',
+    total_quantity: 30,
+    purchase_date: '25-01-2024',
+    cost_per_unit: 5000,
+    category_id: 2
+  },
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.deleteMany({ total_quantity: { $lt: 100 } });
+{ acknowledged: true, deletedCount: 2 }
+material> db.material.find()
+[
+  {
+    _id: ObjectId('69ee0240e866f7d6193682d8'),
+    material_id: 104,
+    material_name: 'Bricks',
+    unit: 'NOS',
+    total_quantity: 10000,
+    purchase_date: '28-01-2024',
+    cost_per_unit: 8,
+    category_id: 2
+  }
+]
+material> db.material.deleteMany({});
+{ acknowledged: true, deletedCount: 1 }
+material> db.material.find()
+
+material>
